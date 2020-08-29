@@ -1,0 +1,4 @@
+C:\dev\Hyperspace\Bin\Debug\HyperspaceEngine.pdb
+C:\dev\Hyperspace\Bin\Int\Hyperspace\Debug\HyperspaceEngine.pdb
+C:\dev\hyperspace-engine\Bin\Debug\HyperspaceEngine.pdb
+C:\dev\hyperspace-engine\Bin\Int\Hyperspace\Debug\HyperspaceEngine.pdb

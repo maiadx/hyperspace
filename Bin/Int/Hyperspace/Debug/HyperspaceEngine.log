@@ -1,0 +1,5 @@
+﻿  RenderAPIContext.cpp
+  VulkanContext.cpp
+  Generating Code...
+C:\dev\hyperspace-engine\HyperspaceEngine\Src\Renderer\Platform\VulkanContext.cpp(191): warning C4715: 'hyVulkanContext::CreateDebugMessengerExt': not all control paths return a value
+  HyperspaceEngine.vcxproj -> C:\dev\hyperspace-engine\Bin\Debug\HyperspaceEngine.lib
