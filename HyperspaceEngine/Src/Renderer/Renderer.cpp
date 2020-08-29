@@ -10,5 +10,5 @@ void hyRenderer::Init(hyRenderAPI api)
 
 void hyRenderer::Shutdown()
 {
-
+	hyRenderCmd::DestroyContext();
 }

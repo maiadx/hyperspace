@@ -89,8 +89,7 @@ void hyVulkanContext::Init()
 
 		PopulateDebugMessengerCreateInfo(onCreateDebugInfo);
 
-		
-		//onCreateInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT*) &onCreateDebugInfo;
+		onCreateInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT*) &onCreateDebugInfo;
 
 	}
 	else
