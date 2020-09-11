@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/Core.h"
-#define GLFW_INCLUDE_NONE
+//#define GLFW_INCLUDE_NONE
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
@@ -26,6 +26,7 @@ public:
 
 	void Update();
 	bool ShouldClose();
+	GLFWwindow* GetGLFWContext();
 
 	static void Init(hyWindow& window);
 	static void Close(hyWindow& window);

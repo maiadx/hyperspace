@@ -1,6 +1,6 @@
 #pragma once
 #include <entt/entt.hpp>
-#include "Entities/Component.h"
+#include "Scene/Component.h"
 
 
 struct hyEntity

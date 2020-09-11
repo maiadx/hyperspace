@@ -5,7 +5,7 @@ class hyDirectX12Context : public hyRenderAPIContext
 {
 
 public:
-	void Init();
+	void Init(hyWindow& window);
 	void Shutdown();
 	
 };

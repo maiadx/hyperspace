@@ -1,1 +1,1 @@
-![Hyperspace Engine](/Resources/logo_mk2.png)
+![Hyperspace Engine](/Resources/logo.png)

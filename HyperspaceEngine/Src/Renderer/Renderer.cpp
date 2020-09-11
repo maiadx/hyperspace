@@ -1,9 +1,9 @@
 #include "hypch.h"
 #include "Renderer.h"
 
-void hyRenderer::Init(hyRenderAPI api)
+void hyRenderer::Init(hyRenderAPI api, hyWindow& window)
 {
-	hyRenderCmd::CreateContext(api);
+	hyRenderCmd::CreateContext(api, window);
 	
 
 }

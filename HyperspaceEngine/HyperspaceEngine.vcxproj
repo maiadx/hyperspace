@@ -61,8 +61,8 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;HYPERSPACE_BUILD_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>hypch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)HyperspaceEngine\Include;$(SolutionDir)HyperspaceEngine\Vendor\glfw\include;$(SolutionDir)HyperspaceEngine\Vendor\glm;$(SolutionDir)HyperspaceEngine\Src;$(SolutionDir)HyperspaceEngine\Vendor\entt\include\;C:\VulkanSDK\1.2.148.1\Include;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)HyperspaceEngine\Include;$(SolutionDir)HyperspaceEngine\Src;$(SolutionDir)HyperspaceEngine\Vendor\glfw\include;$(SolutionDir)HyperspaceEngine\Vendor\glm;$(SolutionDir)HyperspaceEngine\Vendor\entt\include;C:\VulkanSDK\1.2.148.1\Include;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -70,7 +70,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(ProjectDir)Vendor\glfw\lib-vc2019\; $(ProjectDir)Vendor\entt\include\;C:\VulkanSDK\1.2.148.1\Lib\;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Vendor\glfw\lib-vc2019\;C:\VulkanSDK\1.2.148.1\Lib\;</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib; glfw3.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
@@ -84,8 +84,8 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>hypch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)HyperspaceEngine\Include;$(SolutionDir)HyperspaceEngine\Vendor\glfw\include;$(SolutionDir)HyperspaceEngine\Vendor\glm;$(ProjectDir)Vendor\vulkan\include;$(SolutionDir)HyperspaceEngine\Src;$(SolutionDir)HyperspaceEngine\Vendor\entt\include\;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)HyperspaceEngine\Include;$(SolutionDir)HyperspaceEngine\Src;$(SolutionDir)HyperspaceEngine\Vendor\glfw\include;$(SolutionDir)HyperspaceEngine\Vendor\glm;$(SolutionDir)HyperspaceEngine\Vendor\entt\include;C:\VulkanSDK\1.2.148.1\Include;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -94,7 +94,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(ProjectDir)Vendor\glfw\lib-vc2019\; $(ProjectDir)Vendor\vulkan\Lib\; $(ProjectDir)Vendor\entt\single_include\;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)Vendor\glfw\lib-vc2019\;C:\VulkanSDK\1.2.148.1\Lib\;</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib; glfw3.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
@@ -103,10 +103,10 @@
     <ClInclude Include="Src\Renderer\RenderCmd.h" />
     <ClInclude Include="Src\Renderer\Platform\RenderAPIContext.h" />
     <ClInclude Include="Src\Renderer\Renderer.h" />
-    <ClInclude Include="Src\Core\Scene.h" />
+    <ClInclude Include="Src\Scene\Scene.h" />
     <ClInclude Include="Src\Core\Core.h" />
-    <ClInclude Include="Src\Entities\Component.h" />
-    <ClInclude Include="Src\Entities\Entity.h" />
+    <ClInclude Include="Src\Scene\Component.h" />
+    <ClInclude Include="Src\Scene\Entity.h" />
     <ClInclude Include="Src\Events\Event.h" />
     <ClInclude Include="Src\Utils\ArrayList.h" />
     <ClInclude Include="Src\Utils\Array.h" />
@@ -122,7 +122,7 @@
     <ClCompile Include="Src\Renderer\RenderCmd.cpp" />
     <ClCompile Include="Src\Renderer\Platform\RenderAPIContext.cpp" />
     <ClCompile Include="Src\Renderer\Renderer.cpp" />
-    <ClCompile Include="Src\Core\Scene.cpp" />
+    <ClCompile Include="Src\Scene\Scene.cpp" />
     <ClCompile Include="Src\Core\Application.cpp" />
     <ClCompile Include="Include\Hyperspace.h" />
     <ClCompile Include="Include\hypch.cpp">
