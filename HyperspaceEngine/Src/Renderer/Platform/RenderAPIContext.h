@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Renderer/Window.h"
 
 enum class hyRenderAPI
 {
@@ -13,7 +13,7 @@ class hyRenderAPIContext
 public:
 	static hyRenderAPIContext* CreateContext(hyRenderAPI api);
 	
-	virtual void Init() = 0;
+	virtual void Init(hyWindow& window) = 0;
 	virtual void Shutdown() = 0;
 		
 };

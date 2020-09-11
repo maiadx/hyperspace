@@ -26,7 +26,7 @@ hyApplication::~hyApplication()
 void hyApplication::Init()
 {
 	hyWindow::Init(Window);
-	hyRenderer::Init(hyRenderAPI::VULKAN);
+	hyRenderer::Init(hyRenderAPI::VULKAN, Window);
 
 }
 
@@ -56,10 +56,5 @@ void hyApplication::Run()
 
 			Timer.Reset();
 		}
-	
-
 	}
-
-
-
 }

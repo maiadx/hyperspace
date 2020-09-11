@@ -3,10 +3,10 @@
 
 hyRenderAPIContext* hyRenderCmd::RenderAPIContext;
 
-void hyRenderCmd::CreateContext(hyRenderAPI api)
+void hyRenderCmd::CreateContext(hyRenderAPI api, hyWindow& window)
 {
 	RenderAPIContext = hyRenderAPIContext::CreateContext(api);
-	RenderAPIContext->Init();
+	RenderAPIContext->Init(window);
 }
 
 void hyRenderCmd::DestroyContext()

@@ -7,7 +7,7 @@ class hyRenderCmd
 
 public:
 
-	static void CreateContext(hyRenderAPI api);
+	static void CreateContext(hyRenderAPI api, hyWindow& window);
 	static void DestroyContext();	
 
 	
