@@ -4,7 +4,7 @@
 
 
 template<typename T>
-class hyArrayList
+class hyVector
 {
 	T* Data;
 	size_t NumElements;
@@ -33,11 +33,11 @@ class hyArrayList
 	}
 	
 public:
-	hyArrayList() : AllocatedSize(10), NumElements(0), Data{ new T[AllocatedSize] } {}
+	hyVector() : AllocatedSize(10), NumElements(0), Data{ new T[AllocatedSize] } {}
 
-	hyArrayList(size_t size) : AllocatedSize(size), NumElements(0), Data{ new T[size] } {}
-
-	~hyArrayList() { delete[] Data; }
+	hyVector(size_t size) : AllocatedSize(size), NumElements(0), Data{ new T[size] } {}
+	  
+	~hyVector() { delete[] Data; }
 
 	size_t Size() { return NumElements; }
 	size_t GetAllocatedSize() { return AllocatedSize; }

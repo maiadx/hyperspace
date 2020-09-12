@@ -99,6 +99,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\AssetLoader.h" />
     <ClInclude Include="Src\Renderer\Platform\DirectX12Context.h" />
     <ClInclude Include="Src\Renderer\RenderCmd.h" />
     <ClInclude Include="Src\Renderer\Platform\RenderAPIContext.h" />
@@ -108,7 +109,7 @@
     <ClInclude Include="Src\Scene\Component.h" />
     <ClInclude Include="Src\Scene\Entity.h" />
     <ClInclude Include="Src\Events\Event.h" />
-    <ClInclude Include="Src\Utils\ArrayList.h" />
+    <ClInclude Include="Src\Utils\Vector.h" />
     <ClInclude Include="Src\Utils\Array.h" />
     <ClInclude Include="Src\Core\Application.h" />
     <ClInclude Include="Include\hypch.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="Src\Renderer\Platform\VulkanContext.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\AssetLoader.cpp" />
     <ClCompile Include="Src\Renderer\Platform\DirectX12Context.cpp" />
     <ClCompile Include="Src\Renderer\RenderCmd.cpp" />
     <ClCompile Include="Src\Renderer\Platform\RenderAPIContext.cpp" />
@@ -131,6 +133,10 @@
     </ClCompile>
     <ClCompile Include="Src\Renderer\Window.cpp" />
     <ClCompile Include="Src\Renderer\Platform\VulkanContext.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\shader.glsl.frag" />
+    <None Include="Resources\Shaders\shader.glsl.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
