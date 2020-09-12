@@ -1,0 +1,39 @@
+{
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target"
+		],
+		"files" : 
+		[
+			"include/openxr/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 41,
+				"parent" : 0
+			}
+		]
+	},
+	"folder" : 
+	{
+		"name" : "Generated"
+	},
+	"id" : "generate_openxr_header::@84bd3215b0dd4650b711",
+	"name" : "generate_openxr_header",
+	"paths" : 
+	{
+		"build" : "include/openxr",
+		"source" : "include/openxr"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

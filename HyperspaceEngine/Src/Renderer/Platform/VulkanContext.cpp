@@ -2,7 +2,7 @@
 #include "Renderer/Platform/VulkanContext.h"
 #include <cstring>
 
-#include "Utils/ArrayList.h"
+#include "Utils/Vector.h"
 #include "Utils/Array.h"
 #include <string>
 #include <cstdint>
@@ -11,6 +11,8 @@
 #include <array>
 #include <set>
 #include <iostream>
+
+#include "Core/AssetLoader.h"
 
 
 #ifdef HYPERSPACE_BUILD_DEBUG
@@ -55,7 +57,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL VulkanDebugCallback(VkDebugUtilsMessageSev
 }
 
 hyVulkanContext::hyVulkanContext() : Instance(), DebugMessenger(), PhysicalDevice(VK_NULL_HANDLE), LogicalDevice(), 
-									 GraphicsQueue(), WindowSurface(), PresentQueue(), SwapChain() {}
+									 GraphicsQueue(), WindowSurface(), PresentQueue(), SwapChain(), SwapChainImageFormat(), SwapChainExtent() {}
 
 
 void hyVulkanContext::Init(hyWindow& window)
@@ -66,10 +68,15 @@ void hyVulkanContext::Init(hyWindow& window)
 	SelectGfxDevice();
 	CreateLogicalDevice();
 	CreateSwapChain();
+	CreateImageViews();
+	CreateGraphicsPipeline();
 }
 
 void hyVulkanContext::Shutdown()
 {
+	for (VkImageView& imageView : SwapChainImageViews)
+		vkDestroyImageView(LogicalDevice, imageView, nullptr);
+
 	vkDestroySwapchainKHR(LogicalDevice, SwapChain, nullptr);
 	vkDestroyDevice(LogicalDevice, nullptr);
 
@@ -411,7 +418,7 @@ void hyVulkanContext::CreateSwapChain()
 	createInfo.imageExtent = extent;
 	createInfo.imageArrayLayers = 1;									/* This is 1 unless doing stereoscopic rendering */
 	createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;		/* What we use images in SwapChain for */
-																		/* (For postprocesing you may use VK_IMAGE_USAGE_TRANSFER_DST_BIT) */
+																		/* (For postprocesing you might use VK_IMAGE_USAGE_TRANSFER_DST_BIT) */
 	hyQueueFamilyIndices indices = FindQueueFamilies(PhysicalDevice);
 	u32 queueFamilyIndices[] = { indices.GraphicsFamily.value(), indices.PresentFamily.value() };
 
@@ -522,4 +529,94 @@ VkExtent2D hyVulkanContext::ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& cap
 		actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));
 		return actualExtent;
 	
+}
+
+
+void hyVulkanContext::CreateImageViews()
+{
+	SwapChainImageViews.resize(SwapChainImages.size());		/* resize list to fit all the image views */
+
+	for (size_t i = 0; i < SwapChainImages.size(); i++)
+	{
+		VkImageViewCreateInfo createInfo{};
+		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+		createInfo.image = SwapChainImages[i];
+		/* How image data should be interpreted: */
+		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		createInfo.format = SwapChainImageFormat;
+		/* Components let you swizzle color channels, ex: you could map all channels to red for a monochromatic texture */
+		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY; 
+		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+		createInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+		/* subresourceRange: What image purpose is, how it should be accessed */
+		createInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		createInfo.subresourceRange.baseMipLevel = 0;
+		createInfo.subresourceRange.levelCount = 1;
+		createInfo.subresourceRange.baseArrayLayer = 0;
+		createInfo.subresourceRange.layerCount = 1;
+		
+		if (vkCreateImageView(LogicalDevice, &createInfo, nullptr, &SwapChainImageViews[i]) != VK_SUCCESS)
+			std::cerr << "Error: Failed to create image views!" << std::endl;
+		
+	}
+	/* Note from vulkan-tutorial: If you were working on a stereographic 3D application,
+	then you would create a swap chain with multiple layers. You could then create
+	multiple image views for each image representing the views for the left and right
+	eyes by accessing different layers.
+	*/
+	/* These are explicitly created, and so need to be destroyed in ShutDown() */
+
+}
+
+
+void hyVulkanContext::CreateGraphicsPipeline()
+{
+	std::vector<char> vertShaderCode = hyAssetLoader::ReadFile("C:/dev/hyperspace-engine/HyperspaceEngine/Resources/Shaders/vert.spv");
+	std::vector<char> fragShaderCode = hyAssetLoader::ReadFile("C:/dev/hyperspace-engine/HyperspaceEngine/Resources/Shaders/frag.spv");
+
+	/* local testing vert + frag shaders */
+	VkShaderModule vertShaderModule = CreateShaderModule(vertShaderCode);
+	VkShaderModule fragShaderModule = CreateShaderModule(fragShaderCode);
+
+	VkPipelineShaderStageCreateInfo vertShaderStageInfo{};
+	vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+	vertShaderStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
+	
+	/* specify: shader module containing spv code, function to invoke: */
+	vertShaderStageInfo.module = vertShaderModule;
+	vertShaderStageInfo.pName = "main";
+
+	/* final (optional) member, pSpecializationInfo: 
+	   allows you to specify values for shader constraints. (This is more efficient than 
+	   configuring shader variables at render-time, since compiler can do more optimizing)
+	*/
+
+	VkPipelineShaderStageCreateInfo fragShaderStageInfo{};
+	fragShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+	fragShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+	fragShaderStageInfo.module = fragShaderModule;
+	fragShaderStageInfo.pName = "main";
+
+	VkPipelineShaderStageCreateInfo shaderStages[] = { vertShaderStageInfo, fragShaderStageInfo };
+
+
+	vkDestroyShaderModule(LogicalDevice, fragShaderModule, nullptr);
+	vkDestroyShaderModule(LogicalDevice, vertShaderModule, nullptr);
+}
+
+
+VkShaderModule hyVulkanContext::CreateShaderModule(const std::vector<char>& spvCode)
+{
+	/* VkShaderModule creation: Specify pointer to the buffer w/ the bytecode and length */
+	VkShaderModuleCreateInfo createInfo{};
+	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+	createInfo.codeSize = spvCode.size();
+	createInfo.pCode = reinterpret_cast<const uint32_t*>(spvCode.data());
+
+	VkShaderModule shaderModule; 
+	if (vkCreateShaderModule(LogicalDevice, &createInfo, nullptr, &shaderModule) != VK_SUCCESS)
+		std::cerr << "Error: Failed to create Shader Module!" << std::endl;
+
+	return shaderModule;
 }

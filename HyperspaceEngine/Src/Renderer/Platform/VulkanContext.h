@@ -33,18 +33,23 @@ class hyVulkanContext : public hyRenderAPIContext
 	VkDebugUtilsMessengerEXT DebugMessenger;
 	VkSurfaceKHR WindowSurface;								/* surface used by desktop window */
 
- 
-	VkPhysicalDevice PhysicalDevice;
+	/* Device Properties */
+	VkPhysicalDevice PhysicalDevice;						/* todo: Move some this to their own structs? */
 	VkDevice LogicalDevice;
 	VkQueue GraphicsQueue;
 	VkQueue PresentQueue;
-	
+	const std::vector<const char*> DeviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
+
+	/* Swap Chain Properties */
 	VkSwapchainKHR SwapChain;
 	VkFormat SwapChainImageFormat;
 	VkExtent2D SwapChainExtent;
 	std::vector<VkImage> SwapChainImages;
 
-	const std::vector<const char*> DeviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
+	/* Image Views */
+	std::vector<VkImageView> SwapChainImageViews;
+
+
 
 	
 	void CreateInstance();
@@ -78,6 +83,15 @@ class hyVulkanContext : public hyRenderAPIContext
 	hySwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device);
 	VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
 	VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
+
+	/* Image Views */
+	void CreateImageViews();
+
+	/* Graphics Pipeline: Shaders */
+	void CreateGraphicsPipeline();
+	VkShaderModule CreateShaderModule(const std::vector<char>& spvCode);
+
+
 
 public:
 	hyVulkanContext();
