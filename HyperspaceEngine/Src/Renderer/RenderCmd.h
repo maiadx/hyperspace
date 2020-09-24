@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer/Platform/RenderAPIContext.h"
+#include "Renderer/RenderAPIContext.h"
 
 class hyRenderCmd
 {
@@ -10,7 +10,7 @@ public:
 	static void CreateContext(hyRenderAPI api, hyWindow& window);
 	static void DestroyContext();	
 
-	
+	static void DrawFrame();
 
 
 

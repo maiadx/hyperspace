@@ -56,13 +56,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;HYPERSPACE_BUILD_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>hypch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)HyperspaceEngine\Include;$(SolutionDir)HyperspaceEngine\Src;$(SolutionDir)HyperspaceEngine\Vendor\glfw\include;$(SolutionDir)HyperspaceEngine\Vendor\glm;$(SolutionDir)HyperspaceEngine\Vendor\entt\include;C:\VulkanSDK\1.2.148.1\Include;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -77,7 +77,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -85,7 +85,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>hypch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)HyperspaceEngine\Include;$(SolutionDir)HyperspaceEngine\Src;$(SolutionDir)HyperspaceEngine\Vendor\glfw\include;$(SolutionDir)HyperspaceEngine\Vendor\glm;$(SolutionDir)HyperspaceEngine\Vendor\entt\include;C:\VulkanSDK\1.2.148.1\Include;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -99,10 +99,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Renderer\GraphicsDevice.h" />
+    <ClInclude Include="Src\Renderer\GraphicsPipeline.h" />
     <ClInclude Include="Src\Core\AssetLoader.h" />
-    <ClInclude Include="Src\Renderer\Platform\DirectX12Context.h" />
+    <ClInclude Include="Src\Platform\DX12\DirectX12Context.h" />
     <ClInclude Include="Src\Renderer\RenderCmd.h" />
-    <ClInclude Include="Src\Renderer\Platform\RenderAPIContext.h" />
+    <ClInclude Include="Src\Renderer\RenderAPIContext.h" />
     <ClInclude Include="Src\Renderer\Renderer.h" />
     <ClInclude Include="Src\Scene\Scene.h" />
     <ClInclude Include="Src\Core\Core.h" />
@@ -116,13 +118,18 @@
     <ClInclude Include="Src\Utils\Math.h" />
     <ClInclude Include="Src\Renderer\Window.h" />
     <ClInclude Include="Src\Utils\Time.h" />
-    <ClInclude Include="Src\Renderer\Platform\VulkanContext.h" />
+    <ClInclude Include="Src\Platform\Vulkan\VulkanContext.h" />
+    <ClInclude Include="Src\Renderer\SwapChain.h" />
+    <ClInclude Include="Src\Platform\Vulkan\VulkanSwapChain.h" />
+    <ClInclude Include="Src\Platform\Vulkan\VulkanGraphicsDevice.h" />
+    <ClInclude Include="Src\Platform\Vulkan\VulkanGraphicsPipeline.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Renderer\GraphicsPipeline.cpp" />
     <ClCompile Include="Src\Core\AssetLoader.cpp" />
-    <ClCompile Include="Src\Renderer\Platform\DirectX12Context.cpp" />
+    <ClCompile Include="Src\Platform\DX12\DirectX12Context.cpp" />
     <ClCompile Include="Src\Renderer\RenderCmd.cpp" />
-    <ClCompile Include="Src\Renderer\Platform\RenderAPIContext.cpp" />
+    <ClCompile Include="Src\Renderer\RenderAPIContext.cpp" />
     <ClCompile Include="Src\Renderer\Renderer.cpp" />
     <ClCompile Include="Src\Scene\Scene.cpp" />
     <ClCompile Include="Src\Core\Application.cpp" />
@@ -132,7 +139,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Src\Renderer\Window.cpp" />
-    <ClCompile Include="Src\Renderer\Platform\VulkanContext.cpp" />
+    <ClCompile Include="Src\Platform\Vulkan\VulkanContext.cpp" />
+    <ClCompile Include="Src\Renderer\SwapChain.cpp" />
+    <ClCompile Include="Src\Platform\Vulkan\VulkanSwapChain.cpp" />
+    <ClCompile Include="Src\Platform\Vulkan\VulkanGraphicsDevice.cpp" />
+    <ClCompile Include="Src\Platform\Vulkan\VulkanGraphicsPipeline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\shader.glsl.frag" />

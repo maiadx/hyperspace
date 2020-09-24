@@ -51,6 +51,9 @@ void hyApplication::Run()
 		{
 			//std::cout << Timer.GetTime() << std::endl;
 			Window.Update();
+			hyRenderer::BeginScene();
+
+			hyRenderer::EndScene();
 
 			OnUserFrameUpdate();
 

@@ -1,5 +1,5 @@
 #include "hypch.h"
-#include "Renderer/Platform/DirectX12Context.h"
+#include "Platform/DX12/DirectX12Context.h"
 
 
 void hyDirectX12Context::Init(hyWindow& window)
