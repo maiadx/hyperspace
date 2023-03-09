@@ -1,1 +1,1 @@
-![Hyperspace Engine](/Resources/logo.png)
+This project is archived and not actively being developed anymore, sorry :(
